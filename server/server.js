@@ -11,6 +11,9 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Behind Vercel/Proxies, trust X-Forwarded-* headers
+app.set('trust proxy', 1);
+
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL || process.env.REACT_APP_MONGO_URL;
 
@@ -44,7 +47,9 @@ app.use(cors({
         if (!origin || allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
-        return callback(new Error('Not allowed by CORS'));
+        const err = new Error('Not allowed by CORS');
+        err.status = 403;
+        return callback(err);
     },
     credentials: true
 }));
@@ -67,7 +72,7 @@ app.use('/cv', require('./routes/cvRoutes'));
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(err.status || 500).send(err.message || 'Something broke!');
 });
 
 if (require.main === module) {
