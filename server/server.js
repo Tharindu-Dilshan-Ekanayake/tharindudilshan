@@ -23,7 +23,7 @@ if (mongoUrl) {
     console.warn('MongoDB connection skipped: MONGO_URL is not set');
 }
 
-// Middleware
+// Middlewarexxxx
 const allowedOrigins = [
     'http://localhost:3000',
     process.env.CLIENT_URL,
