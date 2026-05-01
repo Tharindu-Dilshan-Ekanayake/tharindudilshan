@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { upload } = require('../helpers/upload');
 const { 
     getAllVlogs,
     
@@ -12,10 +13,10 @@ const {
 router.get('/vlogs', getAllVlogs);
 
 // POST a new vlog
-router.post('/postvlog', createVlog);
+router.post('/postvlog', upload.single('cover_image'), createVlog);
 
 // PUT (update) an existing vlog
-router.put('/vlogs/:id', updateVlog);
+router.put('/vlogs/:id', upload.single('cover_image'), updateVlog);
 
 // DELETE a vlog
 router.delete('/vlogs/:id', deleteVlog);

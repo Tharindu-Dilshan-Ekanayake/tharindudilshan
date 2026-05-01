@@ -30,7 +30,7 @@ const projectSchema = new mongoose.Schema({
     },
     links: [linkSchema],
     images: [{
-        type: String, // Storing base64
+        type: String,
         required: true
     }],
     start_date: {

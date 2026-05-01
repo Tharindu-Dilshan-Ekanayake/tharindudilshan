@@ -22,7 +22,7 @@ const blogSchema = new mongoose.Schema({
         required: true
     },
     images: [{
-        type: String, // Storing base64
+        type: String,
         required: true
     }]
 }, { timestamps: true });

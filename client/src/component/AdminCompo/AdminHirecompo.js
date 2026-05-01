@@ -63,34 +63,64 @@ export default function AdminHirecompo() {
   };
 
   const renderMessages = (messages, title, isUnread) => (
-    <div className="w-1/2 px-4">
-      <h2 className="mb-4 text-2xl font-bold">{title}</h2>
-      {messages.map((message) => (
-        <div key={message._id} className="p-4 mb-4 bg-white rounded-lg shadow-md">
-          <p className="font-semibold">Name: {message.name_user}</p>
-          <p>Email: {message.email}</p>
-          <p>Mobile: {message.mobile}</p>
-          <p>Sent: {formatDate(message.createdAt)}</p>
-          <button
-            onClick={() => openMessagePopup(message)}
-            className="px-4 py-2 mt-2 mr-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-          >
-            View
-          </button>
-          <button
-            onClick={() => deleteMessage(message._id)}
-            className="px-4 py-2 mt-2 text-white bg-red-500 rounded hover:bg-red-600"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+    <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+      <div className="flex items-center justify-between px-4 py-3">
+        <h2 className="text-xl font-bold">{title}</h2>
+        <span className="text-sm text-gray-500">{messages.length} total</span>
+      </div>
+      <table className="min-w-full text-left text-sm">
+        <thead className="bg-gray-50 text-gray-600">
+          <tr>
+            <th className="px-4 py-3 font-semibold">Name</th>
+            <th className="px-4 py-3 font-semibold">Email</th>
+            <th className="px-4 py-3 font-semibold">Mobile</th>
+            <th className="px-4 py-3 font-semibold">Sent</th>
+            <th className="px-4 py-3 font-semibold">Status</th>
+            <th className="px-4 py-3 font-semibold">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {messages.map((message) => (
+            <tr key={message._id} className="border-t border-gray-100">
+              <td className="px-4 py-3 font-medium text-gray-900">{message.name_user}</td>
+              <td className="px-4 py-3 text-gray-700">{message.email}</td>
+              <td className="px-4 py-3 text-gray-700">{message.mobile}</td>
+              <td className="px-4 py-3 text-gray-700">{formatDate(message.createdAt)}</td>
+              <td className="px-4 py-3">
+                <span
+                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                    isUnread
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-green-100 text-green-800'
+                  }`}
+                >
+                  {isUnread ? 'Unread' : 'Read'}
+                </span>
+              </td>
+              <td className="px-4 py-3">
+                <button
+                  onClick={() => openMessagePopup(message)}
+                  className="mr-2 rounded bg-blue-500 px-3 py-1.5 text-white hover:bg-blue-600"
+                >
+                  View
+                </button>
+                <button
+                  onClick={() => deleteMessage(message._id)}
+                  className="rounded bg-red-500 px-3 py-1.5 text-white hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 
   const renderPopup = () => (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm">
-      <div className="w-full max-w-2xl p-8 m-4 bg-white rounded-lg">
+      <div className="w-full max-w-2xl p-5 m-4 bg-white rounded-lg sm:p-8">
         <h2 className="mb-4 text-2xl font-bold">Message from {selectedMessage.name_user}</h2>
         <p><span className="font-semibold">Email:</span> {selectedMessage.email}</p>
         <p><span className="font-semibold">Mobile:</span> {selectedMessage.mobile}</p>
@@ -107,9 +137,9 @@ export default function AdminHirecompo() {
   );
 
   return (
-    <div className="container p-4 mx-auto">
+    <div className="mx-auto max-w-6xl">
       <Toaster position="top-right" />
-      <div className="flex flex-wrap -mx-4">
+      <div className="grid gap-6">
         {renderMessages(unreadMessages, "Unread Messages", true)}
         {renderMessages(readMessages, "Read Messages", false)}
       </div>

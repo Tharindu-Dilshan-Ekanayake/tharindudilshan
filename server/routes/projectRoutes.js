@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { upload } = require('../helpers/upload');
 const { 
     createProject, 
     getAllProjects, 
@@ -9,7 +10,7 @@ const {
 } = require('../controllers/projectController');
 
 // Create a new project
-router.post('/projects', createProject);
+router.post('/projects', upload.array('images', 10), createProject);
 
 // Get all projects
 router.get('/projects', getAllProjects);
@@ -18,7 +19,7 @@ router.get('/projects', getAllProjects);
 router.get('/projects/:id', getProjectById);
 
 // Update a project
-router.put('/projects/:id', updateProject);
+router.put('/projects/:id', upload.array('images', 10), updateProject);
 
 // Delete a project
 router.delete('/projects/:id', deleteProject);

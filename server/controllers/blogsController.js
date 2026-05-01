@@ -1,18 +1,26 @@
 const Blog = require('../models/blogs');
+const { parseJsonField, uploadBufferToCloudinary } = require('../helpers/upload');
+
+const buildBlogPayload = async (body, files = []) => {
+    const existingImages = parseJsonField(body.existingImages, parseJsonField(body.images, []));
+    const uploadedImages = await Promise.all(
+        files.map((file) => uploadBufferToCloudinary(file, 'portfolio/blogs'))
+    );
+
+    return {
+        category: body.category,
+        title: body.title,
+        subject: body.subject,
+        description: body.description,
+        link: body.link,
+        images: [...existingImages, ...uploadedImages]
+    };
+};
 
 // Create a new blog post
 const createBlog = async (req, res) => {
     try {
-        const { category, title, subject, description, link, images } = req.body;
-
-        const newBlog = new Blog({
-            category,
-            title,
-            subject,
-            description,
-            link,
-            images
-        });
+        const newBlog = new Blog(await buildBlogPayload(req.body, req.files));
 
         await newBlog.save();
         res.status(201).json({ message: 'Blog post created successfully', blog: newBlog });
@@ -47,10 +55,10 @@ const getBlogById = async (req, res) => {
 // Update a blog post by ID
 const updateBlog = async (req, res) => {
     try {
-        const { category, title, subject, description, link, images } = req.body;
+        const blogPayload = await buildBlogPayload(req.body, req.files);
         const updatedBlog = await Blog.findByIdAndUpdate(
             req.params.id,
-            { category, title, subject, description, link, images },
+            blogPayload,
             { new: true, runValidators: true }
         );
 
