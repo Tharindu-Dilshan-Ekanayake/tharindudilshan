@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { upload } = require('../helpers/upload');
 
 const {
     createBlog,
@@ -10,7 +11,7 @@ const {
 } = require('../controllers/blogsController');
 
 // Route to create a new blog post
-router.post('/create', createBlog);
+router.post('/create', upload.array('images', 10), createBlog);
 
 // Route to get all blog posts
 router.get('/getblogs', getAllBlogs);
@@ -19,7 +20,7 @@ router.get('/getblogs', getAllBlogs);
 router.get('/getbyidblog/:id', getBlogById);
 
 // Route to update a blog post by ID
-router.put('/updateblog/:id', updateBlog);
+router.put('/updateblog/:id', upload.array('images', 10), updateBlog);
 
 // Route to delete a blog post by ID
 router.delete('/deleteblog/:id', deleteBlog);

@@ -18,6 +18,7 @@ import AdminProject from './pages/Admin/AdminProject';
 import AdminHireMessages from './pages/Admin/AdminHireMessages';
 import AdminSkills from './pages/Admin/AdminSkills';
 import ProtectedRoute from './component/ProtectedRoute';
+import AdminCV from './pages/Admin/AdminCV';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000');
 axios.defaults.withCredentials = true
@@ -39,6 +40,7 @@ function App() {
 
           <Route path='/admindash' element={<ProtectedRoute><AdminDash/></ProtectedRoute>}/>
           <Route path='/adminportfolio' element={<ProtectedRoute><AdminPortfolio/></ProtectedRoute>}/>
+          <Route path='/admincv' element={<ProtectedRoute><AdminCV/></ProtectedRoute>}/>
           <Route path='/adminvlog' element={<ProtectedRoute><AdminVlog/></ProtectedRoute>}/>
           <Route path='/adminblog' element={<ProtectedRoute><AdminBlog/></ProtectedRoute>}/>
           <Route path='/adminprojects' element={<ProtectedRoute><AdminProject/></ProtectedRoute>}/>

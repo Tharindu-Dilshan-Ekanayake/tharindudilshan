@@ -1,146 +1,73 @@
-import React, {  useState, useEffect } from 'react';
-import { Link, useLocation,  } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MdDashboard } from 'react-icons/md';
-import { IoPersonAddSharp } from 'react-icons/io5';
-
-
-
-
-import { CiTextAlignJustify } from "react-icons/ci";
-import { FaVideo } from "react-icons/fa6";
-import { GiSkills } from "react-icons/gi";
-import { FaNetworkWired } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
+import { IoPersonAddSharp, IoMenu, IoClose } from 'react-icons/io5';
+import { CiTextAlignJustify } from 'react-icons/ci';
+import { FaFileAlt, FaNetworkWired } from 'react-icons/fa';
+import { FaMessage, FaVideo } from 'react-icons/fa6';
+import { GiSkills } from 'react-icons/gi';
 import Logout from './Logout';
 
+const navItems = [
+  { path: '/admindash', label: 'Dashboard', icon: MdDashboard },
+  { path: '/adminportfolio', label: 'Portfolio', icon: IoPersonAddSharp },
+  { path: '/admincv', label: 'CV Upload', icon: FaFileAlt },
+  { path: '/adminprojects', label: 'Projects', icon: FaNetworkWired },
+  { path: '/adminvlog', label: 'Vlogs', icon: FaVideo },
+  { path: '/adminblog', label: 'Blogs', icon: CiTextAlignJustify },
+  { path: '/adminskills', label: 'Skills', icon: GiSkills },
+  { path: '/adminhire', label: 'Hire Messages', icon: FaMessage },
+];
+
 export default function AdminNav() {
-    const [activeItem, setActiveItem] = useState(null);
-    
-    
-    
-    const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
-    useEffect(() => {
-        // Update active item based on current route
-        switch (location.pathname) {
-            case '/admindash':
-                setActiveItem(1);
-                break;
-            case '/adminportfolio':
-                setActiveItem(2);
-                break;
-            case '/adminvlog':
-                setActiveItem(3);
-                break;
-           
-            case '/adminblog':
-                setActiveItem(4);
-                break;
-            case '/adminprojects':
-                setActiveItem(5);
-                break;
-            case '/adminhire':
-                setActiveItem(6);
-                break;
-            case '/adminskills':
-                setActiveItem(7);
-                break;
-            default:
-                setActiveItem(null);
-        }
-    }, [location.pathname]);
+  const renderLink = ({ path, label, icon: Icon }) => {
+    const active = location.pathname === path;
 
-    
-   
     return (
-        <div className='h-screen bg-[#2B2B2B] lg:w-[320px] sm:w-fit md:w-72 w-fit'>
-            <div className='pt-12'>
-                <div className='flex items-center justify-center'>
-                    
-                </div>
-
-                
-            </div>
-
-            <div className='justify-center'>
-                <nav>
-                    <ul className='text-left'>
-                        <Link to='/admindash' >
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 dark:hover:text-neutral-300 ${activeItem === 1 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'>
-                                        <MdDashboard size={20} className="opacity-25 sm:w-6 sm:h-6 hover:text-white hover:opacity-70" />
-                                    </div>
-                                    <div>
-                                        <label className='text-white opacity-25 hover:text-white hover:opacity-70' style={{ fontSize: '18px' }}>Dashboard</label>
-                                    </div>
-                                </div>
-                            </li>
-                        </Link>
-                        
-                        <Link to='/adminportfolio' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 2 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><IoPersonAddSharp size={20} className="opacity-25 sm:w-6 sm:h-6" /></div>
-                                    <div><label className='text-white opacity-25' style={{ fontSize: '18px' }}>Update Portfolio</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                     
-                        <Link to='/adminprojects' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 5 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><FaNetworkWired size={20} className="opacity-25 sm:w-6 sm:h-6" /></div>
-                                    <div><label className='text-white opacity-25' style={{ fontSize: '18px' }}>Projects Section</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                        
-                        <Link to='/adminvlog' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 3 ?'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><FaVideo size={20} className="opacity-25 sm:w-6 sm:h-6 hover:text-white" /></div>
-                                    <div><label className='text-white opacity-25 hover:text-white' style={{ fontSize: '18px' }}>Vlogs Section</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/adminblog' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 4 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><CiTextAlignJustify size={20} className="opacity-25 sm:w-6 sm:h-6 hover:text-white" /></div>
-                                    <div><label className='text-white opacity-25 hover:text-white' style={{ fontSize: '18px' }}>Blogs Section</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/adminskills' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 7 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><GiSkills size={20} className="opacity-25 sm:w-6 sm:h-6 hover:text-white" /></div>
-                                    <div><label className='text-white opacity-25 hover:text-white' style={{ fontSize: '18px' }}>Skills Section</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                        <Link to='/adminhire' className='no-underline'>
-                            <li>
-                                <div className={`flex items-center py-3 pl-8 hover:bg-gray-100 hover:bg-opacity-10 ${activeItem === 6 ? 'bg-[#BABABA] bg-opacity-20 text-white' : 'text-gray-100 hover:bg-gray-300 hover:text-white'}`}>
-                                    <div className='mr-8'><FaMessage size={20} className="opacity-25 sm:w-6 sm:h-6 hover:text-white" /></div>
-                                    <div><label className='text-white opacity-25 hover:text-white' style={{ fontSize: '18px' }}>Hire Messages</label></div>
-                                </div>
-                            </li>
-                        </Link>
-                    </ul>
-                    <div className='flex items-center justify-center'>
-                        <div className='pt-10 fix w-fit'>
-                            
-                                
-                            
-                            
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <Logout/>
-        </div>
+      <Link
+        key={path}
+        to={path}
+        onClick={() => setIsOpen(false)}
+        className={`admin-nav-link ${active ? 'admin-nav-link-active' : ''}`}
+      >
+        <Icon className="text-lg shrink-0" />
+        <span>{label}</span>
+      </Link>
     );
+  };
+
+  return (
+    <>
+      <header className="admin-mobile-bar">
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Admin</p>
+          <h1 className="text-lg font-bold text-white">Portfolio Console</h1>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="admin-icon-button"
+          aria-label="Toggle admin navigation"
+        >
+          {isOpen ? <IoClose /> : <IoMenu />}
+        </button>
+      </header>
+
+      <aside className={`admin-sidebar ${isOpen ? 'admin-sidebar-open' : ''}`}>
+        <div className="p-5">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Admin</p>
+          <h2 className="mt-1 text-xl font-bold text-white">Portfolio Console</h2>
+        </div>
+        <nav className="flex flex-col gap-1 px-3">
+          {navItems.map(renderLink)}
+        </nav>
+        <div className="p-4 mt-auto">
+          <Logout />
+        </div>
+      </aside>
+    </>
+  );
 }

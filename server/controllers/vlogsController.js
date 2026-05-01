@@ -1,4 +1,20 @@
 const Vlogs = require('../models/vlogs');
+const { uploadBufferToCloudinary } = require('../helpers/upload');
+
+const buildVlogPayload = async (body, file) => {
+    const coverImage = file
+        ? await uploadBufferToCloudinary(file, 'portfolio/vlogs')
+        : body.existingCoverImage || body.cover_image || '';
+
+    return {
+        category: body.category,
+        title: body.title,
+        subject: body.subject,
+        description: body.description,
+        link: body.link,
+        cover_image: coverImage
+    };
+};
 
 // GET all vlogs
 const getAllVlogs = async (req, res) => {
@@ -15,24 +31,7 @@ const getAllVlogs = async (req, res) => {
 // POST a new vlog
 const createVlog = async (req, res) => {
     try {
-        const {
-            category,
-            title,
-            subject,
-            description,
-            link,
-            cover_image
-        } = req.body;
-
-        // Create Vlog
-        const vlog = await Vlogs.create({
-            category,
-            title,
-            subject,
-            description,
-            link,
-            cover_image
-        });
+        const vlog = await Vlogs.create(await buildVlogPayload(req.body, req.file));
         
         res.status(201).json({ message: 'Vlog posted successfully', vlog });
     } catch (error) {
@@ -44,26 +43,10 @@ const createVlog = async (req, res) => {
 const updateVlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const {
-            category,
-            title,
-            subject,
-            description,
-            link,
-            cover_image
-        } = req.body;
-
         const updatedVlog = await Vlogs.findByIdAndUpdate(
             id,
-            {
-                category,
-                title,
-                subject,
-                description,
-                link,
-                cover_image
-            },
-            { new: true } // This option returns the updated document
+            await buildVlogPayload(req.body, req.file),
+            { new: true, runValidators: true }
         );
 
         if (!updatedVlog) {

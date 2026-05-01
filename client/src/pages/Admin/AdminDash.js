@@ -1,17 +1,11 @@
-import React from 'react'
-import AdminNav from '../../component/AdminCompo/AdminNav'
-import AdminDashCompo from '../../component/AdminCompo/AdminDashCompo'
+import React from 'react';
+import AdminLayout from '../../component/AdminCompo/AdminLayout';
+import AdminDashCompo from '../../component/AdminCompo/AdminDashCompo';
 
 export default function AdminDash() {
   return (
-    <div className='flex'>
-      <div className=''>
-        <AdminNav/>
-      </div>
-      <div className='w-screen'>
-        <AdminDashCompo/>
-      </div>
-      
-    </div>
-  )
+    <AdminLayout title="Dashboard" subtitle="Manage your portfolio content from one responsive console.">
+      <AdminDashCompo />
+    </AdminLayout>
+  );
 }

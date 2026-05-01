@@ -1,15 +1,12 @@
-import React from 'react'
-import AdminNav from '../../component/AdminCompo/AdminNav'
+import React from 'react';
+import AdminLayout from '../../component/AdminCompo/AdminLayout';
 
 export default function AdminSkills() {
   return (
-    <div className='flex'>
-      <div className=''>
-        <AdminNav/>
+    <AdminLayout title="Skills" subtitle="Skills editing tools can live here.">
+      <div className="admin-card p-6">
+        <p className="text-slate-500">Skills section is ready for your next update.</p>
       </div>
-      <div className='w-screen'>
-        <h1>hi</h1>
-      </div>
-    </div>
-  )
+    </AdminLayout>
+  );
 }
