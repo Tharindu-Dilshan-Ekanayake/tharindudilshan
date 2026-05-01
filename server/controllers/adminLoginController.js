@@ -4,6 +4,16 @@ const jwt = require('jsonwebtoken');
 
 const jwtSecret = process.env.JWT_SECRET || process.env.REACT_APP_JWT_SECRET;
 
+const isProduction = process.env.NODE_ENV === 'production' || !!process.env.VERCEL;
+
+const authCookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    path: '/',
+    maxAge: 7 * 24 * 60 * 60 * 1000
+};
+
 // Post endpoint admin
 const createAdmin = async (req, res) => {
     try {
@@ -28,6 +38,11 @@ const createAdmin = async (req, res) => {
 const loginAdmin = async (req, res) => {
     try {
         const { admin_email, password } = req.body;
+
+        if (!jwtSecret) {
+            console.error('JWT_SECRET is not set; cannot sign login token');
+            return res.status(500).json({ error: 'Server auth is not configured' });
+        }
         
         // Check if user exists
         const user = await User.findOne({ admin_email });
@@ -46,7 +61,7 @@ const loginAdmin = async (req, res) => {
                 {},
                 (err, token) => {
                     if (err) throw err;
-                    res.cookie('token', token).json(user);
+                    res.cookie('token', token, authCookieOptions).json(user);
                 }
             );
         } else {
@@ -61,6 +76,11 @@ const loginAdmin = async (req, res) => {
 // Get admin details
 const getAdmin = async (req, res) => {
     try {
+        if (!jwtSecret) {
+            console.error('JWT_SECRET is not set; cannot verify token');
+            return res.status(500).json({ error: 'Server auth is not configured' });
+        }
+
         const token = req.cookies.token;
         if (!token) {
             return res.status(401).json({ error: 'No token, authorization denied' });
@@ -87,7 +107,7 @@ const getAdmin = async (req, res) => {
 // Logout admin
 const logoutAdmin = (req, res) => {
     try {
-        res.clearCookie('token');
+        res.clearCookie('token', authCookieOptions);
         return res.json({ message: 'Logged out successfully' });
     } catch (error) {
         console.error(error);
