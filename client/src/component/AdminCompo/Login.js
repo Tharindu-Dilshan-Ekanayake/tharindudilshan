@@ -30,7 +30,7 @@ export default function Login() {
         error: (error) => {
           setIsLoading(false);
           console.error('Login error:', error);
-          return error.response?.data?.error || 'An error occurred during login';
+          return error.response?.data?.error || error.message || 'An error occurred during login';
         }
       }
     );

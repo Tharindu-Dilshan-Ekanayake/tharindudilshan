@@ -26,7 +26,9 @@ if (mongoUrl) {
     console.warn('MongoDB connection skipped: MONGO_URL is not set');
 }
 
-// Middlewarexxxx
+// CORS
+// Note: On Vercel, the public site might be served from a custom domain that
+// doesn't equal VERCEL_URL, so an allowlist can accidentally block preflights.
 const allowedOrigins = [
     'http://localhost:3000',
     process.env.CLIENT_URL,
@@ -43,15 +45,20 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-    origin(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        const err = new Error('Not allowed by CORS');
-        err.status = 403;
-        return callback(err);
-    },
-    credentials: true
+    // In Vercel deployments, reflect the request origin (enables custom domains).
+    // In local/self-hosted, keep a stricter allowlist.
+    origin: process.env.VERCEL
+        ? true
+        : (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+            const err = new Error('Not allowed by CORS');
+            err.status = 403;
+            return callback(err);
+        },
+    credentials: true,
+    optionsSuccessStatus: 204
 }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
