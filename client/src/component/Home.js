@@ -124,14 +124,14 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-right bg-cover no-repeat lg-h-screen sm:bg-gray-200 sm:pt-1" style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="relative min-h-[100dvh] bg-right bg-cover no-repeat lg-h-screen sm:bg-gray-200 sm:pt-1" style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
        <style jsx>{`
     @media (max-width: 768px) {
       .bg-mobile {
         background-image: url(${BGMobile});
         background-size: cover;
         background-position: center;
-        height: 100vh;
+        min-height: 100dvh;
         
       }
     }
