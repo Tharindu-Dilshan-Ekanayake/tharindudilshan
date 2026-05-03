@@ -38,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <div className="page-bg flex items-center justify-center min-h-screen px-4 bg-center bg-cover" style={{ backgroundImage: `url(${BGG})` }}>
+    <div className="flex items-center justify-center min-h-screen px-4 bg-center bg-cover page-bg" style={{ backgroundImage: `url(${BGG})` }}>
       <style jsx>{`
         @media (max-width: 768px) {
           .page-bg {
