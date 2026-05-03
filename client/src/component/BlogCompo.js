@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import 'tailwindcss/tailwind.css';
 import { IoClose } from "react-icons/io5";
 import { GoNorthStar } from "react-icons/go";
-import BGBLOG from '../images/BGBLOG.jpg';
+
 
 export default function BlogCompo() {
   const [blogs, setBlogs] = useState([]);
@@ -65,7 +65,7 @@ export default function BlogCompo() {
   };
 
   return (
-    <div className="container px-4 py-8 mx-auto max-w-6xl">
+    <div className="container max-w-6xl px-4 py-8 mx-auto">
       <div>
         <h1 className="mb-1 text-4xl font-extrabold text-center">Blogs</h1>
       </div>
@@ -90,7 +90,7 @@ export default function BlogCompo() {
           {filteredBlogs.reverse().map((blog) => (
             <motion.article
               key={blog._id}
-              className="overflow-hidden rounded-2xl border border-orange-200 bg-white/75 shadow-md transition-all duration-300"
+              className="overflow-hidden transition-all duration-300 border border-orange-200 shadow-md rounded-2xl bg-white/75"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
             >
@@ -98,7 +98,7 @@ export default function BlogCompo() {
                 <img
                   src={blog.images[0]}
                   alt={blog.title}
-                  className="h-32 w-full cursor-pointer object-cover sm:h-40 md:h-48"
+                  className="object-cover w-full h-32 cursor-pointer sm:h-40 md:h-48"
                   onClick={() => handleEnlargeImage(blog.images[0])}
                 />
               )}
@@ -109,7 +109,7 @@ export default function BlogCompo() {
                 <p className="mb-3 text-xs text-orange-800 sm:text-sm"> {new Date(blog.createdAt).toLocaleString()}</p>
                 <motion.button
                   onClick={() => handleViewBlog(blog)}
-                  className="w-full rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 sm:w-auto"
+                  className="w-full px-4 py-2 text-sm font-semibold text-white bg-orange-500 rounded-lg hover:bg-orange-600 sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -174,10 +174,10 @@ export default function BlogCompo() {
                 )}
               </div>
               
-              <div className="mt-6 flex justify-end">
+              <div className="flex justify-end mt-6">
                 <motion.button
                   onClick={handleClosePopup}
-                  className="rounded-lg bg-black px-5 py-2 text-sm font-semibold text-white"
+                  className="px-5 py-2 text-sm font-semibold text-white bg-black rounded-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -210,7 +210,7 @@ export default function BlogCompo() {
               />
               <motion.button
                 onClick={handleCloseEnlargedImage}
-                className="absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black px-3 py-2 text-sm font-semibold text-white"
+                className="absolute inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-white bg-black rounded-full right-3 top-3"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
