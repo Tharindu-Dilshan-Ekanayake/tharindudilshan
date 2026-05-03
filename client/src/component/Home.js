@@ -5,7 +5,7 @@ import BGMobile from '../images/ss.jpg'; // Add the new mobile background image
 import { FaLinkedin, FaGithubSquare, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import NavBar from './NavBar';
-import { motion, useAnimationControls } from 'framer-motion';
+import { motion, useAnimationControls, useMotionValue, useSpring } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import DP from '../images/ME.png';
@@ -103,6 +103,10 @@ const HireMeForm = ({ onClose }) => {
 
 export default function Home() {
   const [showHireMeForm, setShowHireMeForm] = useState(false);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const glowX = useSpring(cursorX, { stiffness: 120, damping: 20 });
+  const glowY = useSpring(cursorY, { stiffness: 120, damping: 20 });
 
   const handleHireMeClick = () => {
     setShowHireMeForm(true);
@@ -112,8 +116,15 @@ export default function Home() {
     setShowHireMeForm(false);
   };
 
+  const handleMouseMove = (event) => {
+    const { currentTarget, clientX, clientY } = event;
+    const rect = currentTarget.getBoundingClientRect();
+    cursorX.set(clientX - rect.left);
+    cursorY.set(clientY - rect.top);
+  };
+
   return (
-    <div className="min-h-screen bg-right bg-cover no-repeat lg-h-screen sm:bg-gray-200 sm:pt-1" style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="relative min-h-screen bg-right bg-cover no-repeat lg-h-screen sm:bg-gray-200 sm:pt-1" style={{ backgroundImage: `url(${BG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
        <style jsx>{`
     @media (max-width: 768px) {
       .bg-mobile {
@@ -125,7 +136,15 @@ export default function Home() {
       }
     }
   `}</style>
-      <div className='flex flex-col items-center justify-center h-full px-4 bg-mobile sm:px-6'>
+      <div className='relative flex flex-col items-center justify-center h-full px-4 bg-mobile sm:px-6' onMouseMove={handleMouseMove}>
+        <motion.div
+          className="pointer-events-none absolute -z-0 h-64 w-64 rounded-full bg-orange-500/20 blur-3xl"
+          style={{
+            left: glowX,
+            top: glowY,
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
         <motion.div 
           className='absolute left-0 right-0 top-0 flex justify-center lg:justify-start lg:mt-12 lg:ml-[105px]'
           initial={{ opacity: 0, y: -50 }}
