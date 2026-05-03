@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import BGG from '../../images/BGGICON.jpg';
+import BGMobile from '../../images/ss.jpg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -37,7 +38,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-center bg-cover" style={{ backgroundImage: `url(${BGG})` }}>
+    <div className="flex items-center justify-center min-h-screen px-4 bg-center bg-cover page-bg" style={{ backgroundImage: `url(${BGG})` }}>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .page-bg {
+            background-image: url(${BGMobile}) !important;
+          }
+        }
+      `}</style>
       <div className="w-full max-w-md overflow-hidden bg-white bg-opacity-75 rounded-lg shadow-xl">
         <div className="px-6 py-8">
           <h2 className="mb-8 text-2xl font-bold text-center text-gray-800">Wellcome</h2>

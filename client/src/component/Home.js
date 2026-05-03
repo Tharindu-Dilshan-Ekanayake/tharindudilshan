@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import BG from '../images/BG.jpg';
-import BGMobile from '../images/BGGICON.jpg'; // Add the new mobile background image
+import BGMobile from '../images/ss.jpg'; // Add the new mobile background image
 import { FaLinkedin, FaGithubSquare, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import NavBar from './NavBar';
@@ -64,9 +65,11 @@ const HireMeForm = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-[#19191A] p-8 rounded-lg shadow-lg w-[400px] border-orange-500 border-[1.5px] bg-opacity-75">
-        <h2 className="mb-4 text-2xl text-orange-500">Hire Me</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-black/70">
+      <div className="relative w-full max-w-md rounded-2xl border border-orange-500/40 bg-[#19191A]/90 p-6 shadow-2xl">
+           <div className="mb-4 flex items-center justify-between">
+             <h2 className="text-2xl font-semibold text-orange-500">Hire Me</h2>
+           </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 ">
             <label className="block mb-2 text-white">Name</label>
@@ -84,11 +87,11 @@ const HireMeForm = ({ onClose }) => {
             <label className="block mb-2 text-white">Message</label>
             <textarea name="message" value={formData.message} onChange={handleChange} className="w-full p-2 border rounded" rows="4" required></textarea>
           </div>
-          <div className="flex justify-end">
-            <button type="button" className="px-4 py-2 mr-4 bg-gray-300 rounded hover:bg-gray-600" onClick={onClose}>
-              Cancel
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <button type="button" className="px-4 text-white rounded-lg h-11 bg-white/10 hover:bg-white/20" onClick={onClose}>
+              Close
             </button>
-            <button type="submit" className="px-4 py-2 text-white bg-orange-500 rounded hover:bg-gray-600">
+            <button type="submit" className="px-5 font-semibold text-white bg-orange-500 rounded-lg h-11 hover:bg-orange-600">
               Submit
             </button>
           </div>
@@ -122,46 +125,46 @@ export default function Home() {
       }
     }
   `}</style>
-      <div className='items-center h-screen bg-mobile sm:pt-2'>
+      <div className='flex flex-col items-center justify-center h-full px-4 bg-mobile sm:px-6'>
         <motion.div 
-          className='absolute flex md:mt-12 md:ml-[105px]'
+          className='absolute left-0 right-0 top-0 flex justify-center lg:justify-start lg:mt-12 lg:ml-[105px]'
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <NavBar />
         </motion.div>
-        <div className='flex text-center md:flex md:flex-row md:items-start'>
-          <div className='md:ml-[150px] md:pt-[200px] mr-[120px] sm:ml-[1px] pt-[100px] text-center md:flex-row md:items-start'>
-            <div className='md:pl-[20px] text-center pl-[65px]'>
+        <div className='flex flex-col items-center w-full text-center lg:flex-row lg:items-start'>
+          <div className='pt-[96px] sm:pt-[120px] lg:pt-[200px] mr-0 lg:mr-[120px] text-center lg:ml-[150px]'>
+            <div className='text-center pl-0 sm:pl-2 lg:pl-[20px]'>
               <motion.div 
-                className='flex text-left '
+                className='flex justify-center text-center lg:justify-start lg:text-left'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <h1 className='md:text-[150px] sm:text-[80px] text-[80px]'>
+                <h1 className='text-[56px] sm:text-[72px] md:text-[150px] leading-tight'>
                   <TypewriterText text="Hello..!" />
                 </h1>
               </motion.div>
               <motion.div 
-                className='text-left my-[-50px]'
+                className='text-center lg:text-left my-[-20px] sm:my-[-30px] lg:my-[-50px]'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1 }}
               >
-                <h1 className='md:text-[70px] sm:text-[40px] text-[35px] md:pt-3 pt-8'>
+                <h1 className='text-[28px] sm:text-[34px] lg:text-[70px] lg:pt-3 pt-6 leading-tight'>
                   <TypewriterText text="I am Tharindu" delay={1.5} />
                 </h1>
               </motion.div>
              
               <motion.div 
-                className='sm:pt-12 pb-12 mt-12 text-center w-full sm:w-[480px] pt-1'
+                className='mt-8 sm:mt-10 pb-10 text-center w-full sm:w-[480px]'
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 3 }}
               > 
-              <div className="relative block sm:hidden">
+              <div className="relative block sm:hidden mx-auto w-[170px]">
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -170,27 +173,35 @@ export default function Home() {
                       clipPath: "polygon(0 0, 100% 0, 100% 100%, 75% 100%, 75% 25%, 0 25%)"
                     }}
                   />
-                  <div className="relative flex justify-center ">
-                    <img src={DP} alt='hi' className="relative w-[150px]" />
+                  <div className="relative flex justify-center">
+                    <img src={DP} alt='hi' className="relative w-[160px]" />
                   </div>
                 </div>
                 <motion.p
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="mb-6 md:text-xl text-gray-70 sm:text-[10px] "
+                  className="mb-6 text-[13px] sm:text-[13px] lg:text-xl text-gray-70 pt-8 px-4 sm:px-0 "
                 >
                   Full-Stack Developer | UI/UX Designer | Mobile & Desktop App Developer | Graphic Designer & Video Editor | Youtuber
                 </motion.p>
                 
-                <motion.button 
-                  className='h-12 text-2xl bg-[#f78c0f] w-[200px] rounded-lg text-white hover:bg-gray-700'
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleHireMeClick}
-                >
-                  Hire Me
-                </motion.button>
+                <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
+                  <Link
+                    to="/projects"
+                    className='inline-flex h-12 w-[200px] items-center justify-center rounded-lg border-2 border-orange-500 text-[18px] font-semibold text-orange-500 transition hover:bg-orange-500 hover:text-white'
+                  >
+                    View Projects
+                  </Link>
+                  <motion.button 
+                    className='h-12 w-[200px] rounded-lg bg-orange-500 text-[18px] font-semibold text-white shadow-lg transition hover:bg-gray-700'
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleHireMeClick}
+                  >
+                    Hire Me
+                  </motion.button>
+                </div>
               </motion.div>
             </div>
             <motion.div 
@@ -203,7 +214,7 @@ export default function Home() {
 </motion.div>
 
             <motion.div 
-              className='flex w-full sm:w-[500px] justify-between sm:px-[120px]  pt-12 pl-[60px] '
+              className='flex w-full max-w-[280px] sm:max-w-[500px] justify-center sm:justify-between gap-4 sm:gap-0 px-4 sm:px-[120px] pt-6 sm:pt-12 mx-auto'
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 3.4 }}

@@ -8,8 +8,8 @@ export default function NavBar() {
 
   const getLinkClasses = (path) => {
     return location.pathname === path 
-      ? "hover:text-gray-400 border-b-[2px] border-orange-400 text-black" 
-      : "hover:text-gray-400 text-gray-500";
+      ? "text-orange-500 border-b-[2px] border-orange-500" 
+      : "text-black/70 hover:text-black";
   };
 
   const handleMenuClick = (path) => {
@@ -27,32 +27,45 @@ export default function NavBar() {
         <div className="block lg:hidden">
           <button 
             onClick={toggleMenu} 
-            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            className="fixed left-4 top-4 z-50 rounded-full bg-white/90 p-2 text-gray-700 shadow-lg hover:text-gray-900 focus:outline-none"
+            aria-label="Open menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
           {isMenuOpen && (
-            <div className="absolute left-0 z-20 w-48 py-2 mt-2 ml-2 bg-white rounded-lg shadow-xl">
-              <button onClick={() => handleMenuClick('/')} className={getLinkClasses('/') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Home
-              </button>
-              <button onClick={() => handleMenuClick('/portfolio')} className={getLinkClasses('/portfolio') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Portfolio
-              </button>
-              <button onClick={() => handleMenuClick('/projects')} className={getLinkClasses('/projects') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Projects
-              </button>
-              <button onClick={() => handleMenuClick('/vlogs')} className={getLinkClasses('/vlogs') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Vlogs
-              </button>
-              <button onClick={() => handleMenuClick('/blogs')} className={getLinkClasses('/blogs') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Blogs
-              </button>
-              <button onClick={() => handleMenuClick('/skills')} className={getLinkClasses('/skills') + " block w-full text-left px-4 py-2 hover:bg-gray-100"}>
-                Skills
-              </button>
+            <div className="fixed inset-0 z-40 bg-white text-black">
+              <div className="flex items-center justify-between border-b border-black/10 px-6 py-4">
+                <span className="text-lg font-semibold">Menu</span>
+                <button
+                  onClick={toggleMenu}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-black"
+                  aria-label="Close menu"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="flex flex-col gap-1 px-6 py-6 text-base">
+                <button onClick={() => handleMenuClick('/')} className={getLinkClasses('/') + " w-full py-2 text-left"}>
+                  Home
+                </button>
+                <button onClick={() => handleMenuClick('/portfolio')} className={getLinkClasses('/portfolio') + " w-full py-2 text-left"}>
+                  Portfolio
+                </button>
+                <button onClick={() => handleMenuClick('/projects')} className={getLinkClasses('/projects') + " w-full py-2 text-left"}>
+                  Projects
+                </button>
+                <button onClick={() => handleMenuClick('/vlogs')} className={getLinkClasses('/vlogs') + " w-full py-2 text-left"}>
+                  Vlogs
+                </button>
+                <button onClick={() => handleMenuClick('/blogs')} className={getLinkClasses('/blogs') + " w-full py-2 text-left"}>
+                  Blogs
+                </button>
+                <button onClick={() => handleMenuClick('/skills')} className={getLinkClasses('/skills') + " w-full py-2 text-left"}>
+                  Skills
+                </button>
+              </div>
             </div>
           )}
         </div>

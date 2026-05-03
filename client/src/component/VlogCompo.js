@@ -65,13 +65,13 @@ export default function VlogCompo() {
   };
 
   return (
-    <div className="container px-4 py-6 mx-auto">
+    <div className="container px-4 py-8 mx-auto max-w-6xl">
       <div>
         <h1 className="mb-1 text-4xl font-extrabold text-center">Vlogs</h1>
       </div>
-      <div className="flex justify-center pt-1 pb-10">
+      <div className="flex justify-center pt-2 pb-8">
         <input
-          className="text-[#2b2b2b] border-[#2b2b2b] h-[40px] w-[800px] rounded-3xl pl-3 border-[2px]"
+          className="h-11 w-full max-w-2xl rounded-full border-2 border-[#2b2b2b] bg-white/80 px-4 text-[#2b2b2b] shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
           type="text"
           placeholder="Search by title, category, or subject"
           value={searchQuery}
@@ -86,11 +86,11 @@ export default function VlogCompo() {
       ) : filteredVlogs.length === 0 ? (
         <p className="text-center text-gray-500">No vlogs found matching your search.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredVlogs.reverse().map((vlog) => (
             <motion.article
               key={vlog._id}
-              className="overflow-hidden border-orange-500 rounded-lg shadow-md bg-[#19191a31] border-[1.5px] transition-all duration-300"
+              className="overflow-hidden rounded-2xl border border-orange-200 bg-white/75 shadow-md transition-all duration-300"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
             >
@@ -98,18 +98,18 @@ export default function VlogCompo() {
                 <img
                   src={vlog.cover_image}
                   alt={vlog.title}
-                  className="object-cover w-full h-48 cursor-pointer"
+                  className="h-32 w-full cursor-pointer object-cover sm:h-40 md:h-48"
                   onClick={() => handleEnlargeImage(vlog.cover_image)}
                 />
               )}
               <div className="p-4">
-                <h2 className="mb-1 text-xl font-bold text-orange-900">{vlog.title}</h2>
-                <p className="mb-2 text-sm text-gray-600"> {vlog.category}</p>
-                <p className="mb-2 text-[#19191A] border-b border-orange-400"><strong>{vlog.subject}</strong> </p>
-                <p className="mb-3 text-orange-800"> {new Date(vlog.createdAt).toLocaleString()}</p>
+                <h2 className="mb-1 text-base font-bold text-orange-900 sm:text-lg">{vlog.title}</h2>
+                <p className="mb-1 text-xs text-gray-600 sm:text-sm"> {vlog.category}</p>
+                <p className="mb-2 border-b border-orange-200 text-sm text-[#19191A]"><strong>{vlog.subject}</strong> </p>
+                <p className="mb-3 text-xs text-orange-800 sm:text-sm"> {new Date(vlog.createdAt).toLocaleString()}</p>
                 <motion.button
                   onClick={() => handleViewVlog(vlog)}
-                  className="px-4 py-2 text-white bg-orange-500 rounded hover:bg-orange-600"
+                  className="w-full rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -130,18 +130,15 @@ export default function VlogCompo() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center"
           >
-            <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={handleClosePopup} />
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={handleClosePopup} />
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative p-6 mx-4 overflow-y-auto bg-white rounded-lg shadow-xl w-[1300px] max-h-[90vh] bg-cover bg-center"
-              style={{ backgroundImage: `url(${BGVLOG})`, opacity:12 }}
+              className="relative mx-3 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white/95 p-6 shadow-2xl"
             >
-              <div className='flex justify-center'>
-                <div className='flex px-12 mx-12 '>
-                  <h2 className="mb-1 text-3xl font-bold text-[#19191A]"><strong>{selectedVlog.title}</strong></h2>
-                </div>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-2xl font-bold text-[#19191A] sm:text-3xl"><strong>{selectedVlog.title}</strong></h2>
               </div>
               <div className="mb-4">
                 <p> {selectedVlog.category}</p>
@@ -181,14 +178,16 @@ export default function VlogCompo() {
                 </div>
               )}
               
-              <motion.button
-                onClick={handleClosePopup}
-                className="fixed z-50 p-2 text-white bg-red-500 rounded-full top-4 right-4 hover:bg-red-600"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <IoClose />
-              </motion.button>
+              <div className="mt-6 flex justify-end">
+                <motion.button
+                  onClick={handleClosePopup}
+                  className="rounded-lg bg-black px-5 py-2 text-sm font-semibold text-white"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Close
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -200,7 +199,7 @@ export default function VlogCompo() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -215,11 +214,11 @@ export default function VlogCompo() {
               />
               <motion.button
                 onClick={handleCloseEnlargedImage}
-                className="fixed z-50 p-2 text-white bg-red-500 rounded-full top-4 right-4 hover:bg-red-600"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                className="absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black px-3 py-2 text-sm font-semibold text-white"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <IoClose />
+                <IoClose /> Close
               </motion.button>
             </motion.div>
           </motion.div>
