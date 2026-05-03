@@ -27,7 +27,7 @@ export default function NavBar() {
         <div className="block lg:hidden">
           <button 
             onClick={toggleMenu} 
-            className="fixed left-4 top-4 z-50 rounded-full bg-white/90 p-2 text-gray-700 shadow-lg hover:text-gray-900 focus:outline-none"
+            className="fixed z-50 p-2 text-gray-700 rounded-full shadow-lg left-4 top-4 bg-white/90 hover:text-gray-900 focus:outline-none"
             aria-label="Open menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -35,12 +35,12 @@ export default function NavBar() {
             </svg>
           </button>
           {isMenuOpen && (
-            <div className="fixed inset-0 z-40 bg-white text-black">
-              <div className="flex items-center justify-between border-b border-black/10 px-6 py-4">
-                <span className="text-lg font-semibold">Menu</span>
+            <div className="fixed inset-0 z-40 text-black bg-white">
+              <div className="flex items-center justify-end px-6 py-4 border-b border-black/10">
+                
                 <button
                   onClick={toggleMenu}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-black"
+                  className="inline-flex items-center justify-center text-black border rounded-full h-9 w-9 border-black/10"
                   aria-label="Close menu"
                 >
                   ✕

@@ -105,8 +105,6 @@ export default function VlogCompo() {
               <div className="p-4">
                 <h2 className="mb-1 text-base font-bold text-orange-900 sm:text-lg">{vlog.title}</h2>
                 <p className="mb-1 text-xs text-gray-600 sm:text-sm"> {vlog.category}</p>
-                <p className="mb-2 border-b border-orange-200 text-sm text-[#19191A]"><strong>{vlog.subject}</strong> </p>
-                <p className="mb-3 text-xs text-orange-800 sm:text-sm"> {new Date(vlog.createdAt).toLocaleString()}</p>
                 <motion.button
                   onClick={() => handleViewVlog(vlog)}
                   className="w-full px-4 py-2 text-sm font-semibold text-white bg-orange-500 rounded-lg hover:bg-orange-600 sm:w-auto"
