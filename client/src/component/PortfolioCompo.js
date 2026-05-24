@@ -1,25 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import DP from '../images/ME.png';
-import toast from 'react-hot-toast';
-import axios from 'axios';
 
 export default function PortfolioComponent() {
-  const handleDownloadCV = async () => {
-    try {
-      const latestResponse = await axios.get('/cv/latest');
-      const downloadResponse = await axios.get('/cv/download', { responseType: 'blob' });
-      const blobUrl = window.URL.createObjectURL(new Blob([downloadResponse.data]));
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = latestResponse.data?.original_name || 'cv.pdf';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      toast.error('CV is not available yet');
-    }
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = 'https://application-mergx.s3.ap-south-1.amazonaws.com/SE_THARINDU_DILSHAN.pdf';
+    link.target = '_blank';
+    link.download = 'SE_THARINDU_DILSHAN.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   return (
