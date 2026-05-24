@@ -67,7 +67,7 @@ const HireMeForm = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 bg-black/70">
       <div className="relative w-full max-w-md rounded-2xl border border-orange-500/40 bg-[#19191A]/90 p-6 shadow-2xl">
-           <div className="mb-4 flex items-center justify-between">
+           <div className="flex items-center justify-between mb-4">
              <h2 className="text-2xl font-semibold text-orange-500">Hire Me</h2>
            </div>
         <form onSubmit={handleSubmit}>
@@ -138,7 +138,7 @@ export default function Home() {
   `}</style>
       <div className='relative flex flex-col items-center justify-center h-full px-4 bg-mobile sm:px-6' onMouseMove={handleMouseMove}>
         <motion.div
-          className="pointer-events-none absolute -z-0 h-64 w-64 rounded-full bg-orange-500/20 blur-3xl"
+          className="absolute w-64 h-64 rounded-full pointer-events-none -z-0 bg-orange-500/20 blur-3xl"
           style={{
             left: glowX,
             top: glowY,
@@ -233,7 +233,7 @@ export default function Home() {
 </motion.div>
 
             <motion.div 
-              className='flex w-full max-w-[280px] sm:max-w-[500px] justify-center sm:justify-between gap-4 sm:gap-0 px-4 sm:px-[120px] pt-6 sm:pt-12 mx-auto'
+              className='flex w-full max-w-[280px] sm:max-w-[500px] justify-center sm:justify-between gap-4 sm:gap-0 px-4 sm:px-[120px]  sm:pt-12 mx-auto pt-1 pb-10'
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 3.4 }}
